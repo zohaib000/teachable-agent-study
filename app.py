@@ -249,5 +249,12 @@ with st.sidebar:
                     file_name="session_logs.csv",
                     mime="text/csv",
                 )
+            st.caption("⚠️ Deleting logs is permanent. Download first.")
+            confirm_text = st.text_input(
+                "Type DELETE to enable the delete button:", key="confirm_delete"
+            )
+            if st.button("Delete session logs", disabled=(confirm_text != "DELETE")):
+                os.remove(LOG_PATH)
+                st.success("Logs deleted. Refresh the page to confirm.")
         else:
             st.caption("No logs yet.")
